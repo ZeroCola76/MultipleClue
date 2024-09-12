@@ -1,0 +1,85 @@
+#pragma once
+
+// 버텍스의 구조체
+struct Vertex {
+    Vector3 position; //위치 
+    Vector3 normal; //노말
+    Vector2 texcoord; //텍스처
+    // Vector3 color;
+};
+
+// 메쉬 데이터 : 기본적으로 버텍스의 위치와 인덱스를 저장하고 있다. 버퍼가 필요하다
+struct MeshData {
+    std::vector<Vertex> vertices; //버텍스
+    std::vector<uint16_t> indices;//인덱스
+    std::string textureFilename; //텍스처의 파일 위치경로
+};
+///------------------------------------------------------------------------------
+
+//메쉬의 정보
+struct Mesh {
+    ComPtr<ID3D11Buffer> m_vertexBuffer; //버텍스 버퍼
+    ComPtr<ID3D11Buffer> m_indexBuffer; //인덱스 버퍼
+    ComPtr<ID3D11Buffer> m_vertexConstantBuffer; //상수버텍스 버퍼 
+                                                 // GPU 계산은 쉐이더에서 됨 
+                                                 // 버퍼 ->쉐이더에서 데이터 읽음 
+                                                 // 상수 버퍼 -> 세이더에 전달되는 데이터 저장
+    ComPtr<ID3D11Buffer> m_pixelConstantBuffer; //상수 픽셀 버퍼 마찬가지
+
+    //아직 고민중인 부분 
+    ComPtr<ID3D11Texture2D> texture; //텍스처
+    ComPtr<ID3D11ShaderResourceView> textureResourceView; // 셰이더리소스뷰 : (리소스 데이터를 읽는다는데..정작 쓰는 곳은 없긴하다.)
+
+    UINT m_indexCount; //몇번째 메쉬인지 확인하기 위한 인덱스
+};
+
+
+#define MAX_LIGHTS 3 //전체조명 ,스포트 라이트 ,포인트 라이트 사용하지 않는 조명을 0으로 만듭니다 내부에서
+
+//---순서대로 그대로 넣는다---
+// 조명
+struct Light {
+    Vector3 strength = Vector3(1.0f);              // 12BYTE 빛의 세기 - 빛은 1, 빛을 발광하지 않는 물체는 0
+    float fallOffStart = 0.0f;                     // 4 //낮을 수록 빛 주변이 어둡고 높을수록 빛 주변이 밝습니다
+    Vector3 direction = Vector3(0.0f, 0.0f, 1.0f); // 12 //방향
+    float fallOffEnd = 10.0f;                      // 4 //낮을 수록 빛 주변이 어둡고 높을수록 빛 주변이 밝습니다
+    Vector3 position = Vector3(0.0f, 0.0f, -2.0f); // 12 //빛의 위치
+    float spotPower = 1.0f;                        // 4 //낮을 수록 빛이 비추는 범위가 크고 높을수록 범위가 작습니다
+};
+
+//버텍스 상수 버퍼
+struct VertexConstantBuffer {
+    Matrix world; //로컬좌표
+    Matrix invTranspose; //반전좌표
+    Matrix view; //뷰포트좌표
+    Matrix projection; //포르젝션좌표
+};
+
+//픽셀 상수버퍼
+struct PixelShaderConstantBuffer {
+    Vector3 eyeWorld;         // 12 //시점변환에 사용
+    bool useTexture = 1;      // 4byte  //텍스처를 사용할것인가 여부
+    Material material;        // 48 //메테리얼
+    Light lights[MAX_LIGHTS]; // 48 * MAX_LIGHTS //빛
+};
+
+//노말 상수 버퍼
+struct NormalShaderConstantBuffer {
+    /*Matrix world;
+    Matrix invTranspose;
+    Matrix view;
+    Matrix projection;*/ //안씀
+    float scale = 0.1f; //크기 
+    float dummy[3]; //더미데이터
+};
+
+// 재질
+struct Material {
+    Vector3 ambient = Vector3(0.1f);  // 12 //모든 방향에서 그대로 오는 색깔
+    float shininess = 1.0f;           // 4 //광택
+    Vector3 diffuse = Vector3(0.5f);  // 12 // 표면에서 반사되는 색깔
+    float dummy1;                     // 4 //더미 데이터
+    Vector3 specular = Vector3(0.5f); // 12 //표면에서 반사되어 반짝이는 색깔
+    float dummy2;                     // 4 //더미데이터
+};
+

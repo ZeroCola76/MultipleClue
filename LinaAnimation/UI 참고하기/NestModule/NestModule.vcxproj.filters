@@ -1,0 +1,210 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{154fa1f0-9977-4c61-867d-4080860533f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{c264689b-cbba-43ea-a511-f907f3c1e3e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\InputManager">
+      <UniqueIdentifier>{5b30f9f2-842e-45c8-bbb2-63f12777298d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\CollisionManager">
+      <UniqueIdentifier>{806a3e2f-3fa8-47a2-b657-8213d969ba22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ObjectManager">
+      <UniqueIdentifier>{1f521885-e578-45ac-ac05-defcc26df0f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SceneManager">
+      <UniqueIdentifier>{06fa50c3-2507-4385-812d-563ddf3d0f82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\SoundManager">
+      <UniqueIdentifier>{f3a22ca3-a68a-4814-8815-b0c7bc1d2381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\TimeManager">
+      <UniqueIdentifier>{96dc8a5b-3f5f-480f-8964-f33c4d9d7a4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager">
+      <UniqueIdentifier>{b6b43636-f1a5-4d47-ba89-7fc2e7f86a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\PathManager">
+      <UniqueIdentifier>{14e1d073-90ab-4db9-9676-7b30b9f13e59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enum">
+      <UniqueIdentifier>{322de962-7e34-4d64-b796-e0f7d1703933}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enum\InputEnum">
+      <UniqueIdentifier>{5298fa90-7887-4c95-bf45-f1c666a42239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager\ResourceManager\ResourceBase">
+      <UniqueIdentifier>{be514515-c736-4b8a-9798-4bd84f5d75a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enum\ResourceEnum">
+      <UniqueIdentifier>{fcd5db2a-8954-480f-97f1-8d8c8f61286e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Factory">
+      <UniqueIdentifier>{b62766df-755d-49f8-91fe-f793b7cfa903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\GraphicsComponent">
+      <UniqueIdentifier>{54449dc2-44f0-4bf6-ae73-bb3f2f0dfa4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\GraphicsComponent\Light">
+      <UniqueIdentifier>{b9e8cf0e-4091-4728-bc61-55c863b7ee59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\GraphicsComponent\ConstantBuffer">
+      <UniqueIdentifier>{e7f84eec-1e0a-4d1b-9618-bf4c4826977f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\GraphicsComponent\Geometry">
+      <UniqueIdentifier>{44c040b6-e8f4-49a2-bd15-a82f1cd1fbc3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entity">
+      <UniqueIdentifier>{63003794-b959-43aa-b33b-f795548a9d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enum\EntityEnum">
+      <UniqueIdentifier>{45e8f3ee-ad50-4564-8b05-21697435fa82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider">
+      <UniqueIdentifier>{b9858375-3f8c-402b-b3f4-9d3503de16e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\BoxCollider">
+      <UniqueIdentifier>{eb44cfa3-a665-47f5-97d4-b0823cdb494f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\Collider\SphereCollider">
+      <UniqueIdentifier>{994bc555-f4cb-4959-9855-f13e503a4219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component\TransformComponent">
+      <UniqueIdentifier>{b5b0988b-600b-4a62-b300-9fd995ceb8a2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="IManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectManager.h">
+      <Filter>Manager\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>Manager\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="PathManager.h">
+      <Filter>Manager\PathManager</Filter>
+    </ClInclude>
+    <ClInclude Include="InputEnum.h">
+      <Filter>Enum\InputEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceBase.h">
+      <Filter>Manager\ResourceManager\ResourceBase</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceEnum.h">
+      <Filter>Enum\ResourceEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Manager\ResourceManager\ResourceBase</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Manager\TimeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundManager.h">
+      <Filter>Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Manager\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Manager\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="IFactory.h">
+      <Filter>Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="Geometry.h">
+      <Filter>Component\GraphicsComponent\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Component\GraphicsComponent\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="ConstantBuffer.h">
+      <Filter>Component\GraphicsComponent\ConstantBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Manager\ResourceManager\ResourceBase</Filter>
+    </ClInclude>
+    <ClInclude Include="IComponent.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="TransformComponent.h">
+      <Filter>Component\TransformComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityEnum.h">
+      <Filter>Enum\EntityEnum</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.h">
+      <Filter>Component\GraphicsComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="ICollider.h">
+      <Filter>Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxColliderComponent.h">
+      <Filter>Component\Collider\BoxCollider</Filter>
+    </ClInclude>
+    <ClInclude Include="SphereColliderComponent.h">
+      <Filter>Component\Collider\SphereCollider</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ObjectManager.cpp">
+      <Filter>Manager\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>Manager\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="PathManager.cpp">
+      <Filter>Manager\PathManager</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Manager\TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundManager.cpp">
+      <Filter>Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsComponent.cpp">
+      <Filter>Component\GraphicsComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="TransformComponent.cpp">
+      <Filter>Component\TransformComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxColliderComponent.cpp">
+      <Filter>Component\Collider\BoxCollider</Filter>
+    </ClCompile>
+    <ClCompile Include="SphereColliderComponent.cpp">
+      <Filter>Component\Collider\SphereCollider</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="생각.txt" />
+  </ItemGroup>
+</Project>

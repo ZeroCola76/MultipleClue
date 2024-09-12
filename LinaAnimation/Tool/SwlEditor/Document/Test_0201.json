@@ -1,0 +1,6 @@
+{
+  "objs":[
+    {"name" : "obj1", "comp":["trs","collider","render"]},
+    {"name" : "obj2", "comp":["trs","collider","render"]}
+    ]
+}

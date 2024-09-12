@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Util">
+      <UniqueIdentifier>{30b5899a-6768-4e91-9c68-e2cb96bff429}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\JsonUtil">
+      <UniqueIdentifier>{8cf2c43a-f8d2-4817-bc2c-fd4d8f1d3313}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Util\Timer">
+      <UniqueIdentifier>{0377b10a-8058-4180-a98d-b46255f491d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source\00.Template">
+      <UniqueIdentifier>{ebdf9b1e-e6ef-4b27-8d53-f64a3d01dcbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\01.Object">
+      <UniqueIdentifier>{c337290f-83d0-461f-8335-a0a2bd982cb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\02.Scene">
+      <UniqueIdentifier>{bbf29c4a-1f1e-4b9c-b848-ea37ecede935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header\00.Template">
+      <UniqueIdentifier>{539d0402-cac7-45d8-8ca8-8fb91d297b2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\01.Object">
+      <UniqueIdentifier>{fe49d76d-f957-4c46-b112-d5d6ba4fe099}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\02.Scene">
+      <UniqueIdentifier>{190c9678-bf81-40e4-ad4f-d0d86ae91b3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\03.Util">
+      <UniqueIdentifier>{0e91222e-b3e1-4ae9-9bb6-2b4d31ec7d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\03.Util">
+      <UniqueIdentifier>{ff488824-ba2e-4695-b132-b2030d480a61}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header</Filter>
+    </ClInclude>
+    <ClInclude Include="SwlEditorView.h">
+      <Filter>Header\00.Template</Filter>
+    </ClInclude>
+    <ClInclude Include="SwlEditorDoc.h">
+      <Filter>Header\00.Template</Filter>
+    </ClInclude>
+    <ClInclude Include="SwlEditor.h">
+      <Filter>Header\00.Template</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>Header\00.Template</Filter>
+    </ClInclude>
+    <ClInclude Include="TestObject.h">
+      <Filter>Header\01.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjectCtrl.h">
+      <Filter>Header\01.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="CObjCtrlPane.h">
+      <Filter>Header\01.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header\02.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Resource</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="SwlEditorView.cpp">
+      <Filter>Source\00.Template</Filter>
+    </ClCompile>
+    <ClCompile Include="SwlEditorDoc.cpp">
+      <Filter>Source\00.Template</Filter>
+    </ClCompile>
+    <ClCompile Include="SwlEditor.cpp">
+      <Filter>Source\00.Template</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>Source\00.Template</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjCtrlPane.cpp">
+      <Filter>Source\01.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="CObjectCtrl.cpp">
+      <Filter>Source\01.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>Source\02.Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SwlEditor.rc">
+      <Filter>Resource</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\userimages.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\SwlEditorDoc.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\Toolbar256.bmp">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\Swl2.ico">
+      <Filter>Resource</Filter>
+    </Image>
+    <Image Include="res\SwlEditor.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\SwlEditor.rc2">
+      <Filter>Resource</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+여긴 우리 구역이다.
+오너라, 미천한 족속들이여!
+
+14:16 24-01-16
+2024.01.16 임시로 vertex, index 정보만을 뽑아낼 수 있도록 만듬 
+예시 )
+Converter* converter = new Converter();		// Converter객체를 생성
+ReadFile(Test.fbx);					// ../Resource/Asset/ 경로에 있는 파일
+m_pModelData = GetModelData();			// ModelData를 반환하는 함수

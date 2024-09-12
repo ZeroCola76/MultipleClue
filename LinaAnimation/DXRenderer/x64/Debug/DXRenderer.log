@@ -1,0 +1,83 @@
+﻿  BoneInstance.cpp
+  Camera.cpp
+  D3dUtilities.cpp
+  GUIManager.cpp
+  NestDevice.cpp
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\NestDevice.cpp(72,23): warning C4312: '형식 캐스트': 'int'에서 더 큰 'HWND'(으)로의 변환입니다.
+  NestRenderer.cpp
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\NestRenderer.cpp(22,15): warning C4312: '형식 캐스트': 'int'에서 더 큰 'HWND'(으)로의 변환입니다.
+  MeshGroup.cpp
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: '=': 'const wchar_t'에서 'char'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'MeshGroup.cpp'을(를) 컴파일하는 중)
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18):
+  템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+  	C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\MeshGroup.cpp(192,17):
+  	컴파일되는 함수 템플릿 인스턴스화 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_const_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+  		C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\MeshGroup.cpp(192,17):
+  		'MeshGroup::WstringToString'에서 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string'에 대한 첫 번째 참조를 확인하세요.
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2600,17):
+  	컴파일되는 함수 템플릿 인스턴스화 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<const wchar_t*,const wchar_t*,_Size_type>(_Iter,const _Sent,_Size)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Size_type=unsigned __int64,
+              _Iter=const wchar_t *,
+              _Sent=const wchar_t *,
+              _Size=unsigned __int64
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2756,18):
+  	컴파일되는 함수 템플릿 인스턴스화 '_OutIt *std::_Copy_n_unchecked4<const wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)'에 대한 참조를 확인하세요.
+          with
+          [
+              _OutIt=char *,
+              _Size=unsigned __int64,
+              _InIt=const wchar_t *,
+              _SizeTy=unsigned __int64
+          ]
+  
+  SkeltaMeshGroup.cpp
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\SkeltaMeshGroup.cpp(155,61): warning C4267: '초기화 중': 'size_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\SkeltaMeshGroup.cpp(155,35): warning C4267: '초기화 중': 'size_t'에서 'const unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\SkeltaMeshGroup.cpp(505,36): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\SkeltaMeshGroup.cpp(558,54): warning C4267: '=': 'size_t'에서 'UINT'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18): warning C4244: '=': 'const wchar_t'에서 'char'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  (소스 파일 'SkeltaMeshGroup.cpp'을(를) 컴파일하는 중)
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xutility(4537,18):
+  템플릿 인스턴스화 컨텍스트(가장 오래된 인스턴스화 컨텍스트)가
+  	C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\SkeltaMeshGroup.cpp(304,17):
+  	컴파일되는 함수 템플릿 인스턴스화 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string<std::_String_const_iterator<std::_String_val<std::_Simple_types<_Elem>>>,0>(_Iter,_Iter,const _Alloc &)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Elem=wchar_t,
+              _Iter=std::_String_const_iterator<std::_String_val<std::_Simple_types<wchar_t>>>,
+              _Alloc=std::allocator<char>
+          ]
+  		C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\SkeltaMeshGroup.cpp(304,17):
+  		'SkeltaMeshGroup::WstringToString'에서 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>::basic_string'에 대한 첫 번째 참조를 확인하세요.
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2600,17):
+  	컴파일되는 함수 템플릿 인스턴스화 'void std::basic_string<char,std::char_traits<char>,std::allocator<char>>::_Construct_from_iter<const wchar_t*,const wchar_t*,_Size_type>(_Iter,const _Sent,_Size)'에 대한 참조를 확인하세요.
+          with
+          [
+              _Size_type=unsigned __int64,
+              _Iter=const wchar_t *,
+              _Sent=const wchar_t *,
+              _Size=unsigned __int64
+          ]
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.39.33519\include\xstring(2756,18):
+  	컴파일되는 함수 템플릿 인스턴스화 '_OutIt *std::_Copy_n_unchecked4<const wchar_t*,_Size,char*>(_InIt,_SizeTy,_OutIt)'에 대한 참조를 확인하세요.
+          with
+          [
+              _OutIt=char *,
+              _Size=unsigned __int64,
+              _InIt=const wchar_t *,
+              _SizeTy=unsigned __int64
+          ]
+  
+  코드를 생성하고 있습니다...
+C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\DXRenderer\NestDevice.cpp(132,1): warning C4715: 'NestDevice::InitializeDevice': 모든 제어 경로에서 값을 반환하지는 않습니다.
+  DXRenderer.vcxproj -> C:\Users\user\Downloads\24.2.19.20.04\5_Project\LinaAnimation\x64\Debug\DXRenderer.lib

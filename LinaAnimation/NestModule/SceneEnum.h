@@ -1,0 +1,17 @@
+#pragma once
+
+enum class SCENE_TYPE
+{
+	TITLE,
+	INTRO,
+	ROOM1,
+	KITCHEN,
+	LIVINGROOM,
+	ROOM2,
+	SECOND_FLOOR,
+	COLDCASE,
+	ENDING,
+	CREDIT,
+	SETTING,
+	END
+};

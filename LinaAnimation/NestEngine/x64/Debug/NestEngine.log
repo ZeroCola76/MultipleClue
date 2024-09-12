@@ -1,0 +1,8 @@
+﻿  GameProcess.cpp
+  main.cpp
+  코드를 생성하고 있습니다...
+GameEngine.lib(InputManager.obj) : warning LNK4204: ''에 참조 모듈에 대한 디버깅 정보가 없습니다. 디버깅 정보가 없는 것처럼 개체를 링크합니다.
+GameEngine.lib(ResourceManager.obj) : warning LNK4204: ''에 참조 모듈에 대한 디버깅 정보가 없습니다. 디버깅 정보가 없는 것처럼 개체를 링크합니다.
+GameEngine.lib(TimeManager.obj) : warning LNK4204: ''에 참조 모듈에 대한 디버깅 정보가 없습니다. 디버깅 정보가 없는 것처럼 개체를 링크합니다.
+GameEngine.lib(SoundManager.obj) : warning LNK4204: ''에 참조 모듈에 대한 디버깅 정보가 없습니다. 디버깅 정보가 없는 것처럼 개체를 링크합니다.
+  NestEngine.vcxproj -> E:\Project\5_Project\x64\Debug\NestEngine.exe

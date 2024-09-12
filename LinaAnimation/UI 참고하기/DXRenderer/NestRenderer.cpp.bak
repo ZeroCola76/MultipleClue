@@ -1,0 +1,579 @@
+#include "NestRenderer.h"
+#include "Camera.h"
+#include "GUIManager.h"
+#include "NestDevice.h"
+
+<<<<<<< .mine
+#include "Camera.h"
+//#include "pch.h"
+
+||||||| .r458
+#include "Camera.h"
+#include "pch.h"
+
+=======
+>>>>>>> .r464
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
+
+#pragma comment(lib, "d3d11.lib")
+#pragma comment(lib, "D3DCompiler.lib")
+
+NestRenderer::NestRenderer() : m_hMainWnd(0), m_pixelConstantBufferData() {}
+
+NestRenderer::~NestRenderer() {}
+
+bool NestRenderer::Initialize(int m_hWnd, int m_screenWidth, int m_screenHeight) {
+    nestDevice = new NestDevice();
+
+    m_hMainWnd = (HWND)m_hWnd;
+    m_clientWidth = m_screenWidth;
+    m_clientHeight = m_screenHeight;
+
+    nestDevice->InitializeDevice(m_hWnd, m_screenWidth, m_screenHeight);
+    GetInfoDevice();
+
+    /// ---------여기서부터 우리가 전략적으로 추가하고 수정할 부분임!-----------
+
+    // 텍스처 생성이 원래 있었음(옮김)
+
+    // MeshData meshData = GameObject::MakeGrid(2.0f, 1.7f, 5, 1);
+
+    /// 인스턴스 생성
+    camera = new Camera();
+    guiManager =
+        new GUIManager(m_clientWidth, m_clientHeight, m_hMainWnd, m_pD3dDevice, m_pD3dContext);
+    guiManager->InitializeGUI();
+
+    return true;
+}
+
+bool NestRenderer::Update(float m_dTime) {
+    // gui
+    guiManager->BeginGUI();
+    guiManager->UIUpdateGUI();
+
+    // 카메라의 키 입력 (이거 밖으로 뺄 거임..)
+    if (GetAsyncKeyState('W') & 0x8000)
+        camera->MoveForward(10.0f * m_dTime);
+
+    if (GetAsyncKeyState('S') & 0x8000)
+        camera->MoveForward(-10.0f * m_dTime);
+
+    if (GetAsyncKeyState('A') & 0x8000)
+        camera->MoveRight(-10.0f * m_dTime);
+
+    if (GetAsyncKeyState('D') & 0x8000)
+        camera->MoveRight(10.0f * m_dTime);
+
+    // 이 부분 없애고, imgui -> 카메라 -> 그래픽스로 데이터를 넘기게 제작 바꿀 예정
+    Matrix camViewRow = camera->GetViewRow();
+    Matrix camProjRow = camera->GetProjRow();
+    Vector3 camEyeWorld = camera->GetEyePos();
+
+    Matrix guiViewRow = guiManager->GetViewRow();
+    Matrix guiProjRow = guiManager->GetProjRow();
+    Vector3 guiEyeWorld = guiManager->GetEyePos();
+
+    static float rot = 0.0f;
+    rot += m_dTime;
+
+    // 모델의 변환
+    m_vertexConstantBufferData.world =
+        // Matrix::CreateScale(m_worldScaling) * Matrix::CreateRotationY(rot) *
+        // Matrix::CreateRotationX(rot) * Matrix::CreateRotationZ(rot) * // 자동 회전
+        Matrix::CreateRotationX(m_worldRotation.x) * Matrix::CreateRotationY(m_worldRotation.y) *
+        Matrix::CreateRotationZ(m_worldRotation.z) * Matrix::CreateTranslation(m_worldTranslation);
+    // Matrix::CreateTranslation(Vector3(0.0f, 0.0f, 1.0f));
+    m_vertexConstantBufferData.world = m_vertexConstantBufferData.world.Transpose();
+
+    m_worldTranslation = guiManager->GetTranslation();
+    m_worldRotation = guiManager->GetEyeRot();
+
+    m_vertexConstantBufferData.invTranspose = m_vertexConstantBufferData.world;
+    m_vertexConstantBufferData.invTranspose.Translation(Vector3(0.0f));
+    m_vertexConstantBufferData.invTranspose =
+        m_vertexConstantBufferData.invTranspose.Transpose().Invert();
+
+    // 시점 변환
+    m_vertexConstantBufferData.view = XMMatrixLookToLH(m_viewEyePos, m_viewEyeDir, m_viewUp);
+    // m_vertexConstantBufferData.view = Matrix::CreateRotationY(m_viewRot) *
+    // Matrix::CreateTranslation(0.0f, 0.0f, 2.0f);
+    m_pixelConstantBufferData.eyeWorld =
+        Vector3::Transform(Vector3(0.0f), m_vertexConstantBufferData.view.Invert());
+    m_vertexConstantBufferData.view = m_vertexConstantBufferData.view.Transpose();
+
+    m_viewEyePos =
+        Vector3(guiEyeWorld.x, guiEyeWorld.y,
+                guiEyeWorld.z - 4.0f); // gui 움직임 나중에 수행되기때문에 얘를 기준으로
+                                       // 조작된다..// 임시로 하드코딩함 -> 나중에 수정예정
+    m_viewEyeDir = Vector3(guiManager->GetViewEyeDir());
+
+    m_viewUp = Vector3(guiManager->GetViewUp());
+
+    // 프로젝션
+    m_aspect = GetAspectRatio();
+    if (m_usePerspectiveProjection) {
+        m_vertexConstantBufferData.projection = XMMatrixPerspectiveFovLH(
+            XMConvertToRadians(m_projFovAngleY), m_aspect, m_nearZ, m_farZ);
+    } else {
+        m_vertexConstantBufferData.projection =
+            XMMatrixOrthographicOffCenterLH(-m_aspect, m_aspect, -1.0f, 1.0f, m_nearZ, m_farZ);
+    }
+    m_vertexConstantBufferData.projection = m_vertexConstantBufferData.projection.Transpose();
+
+    m_usePerspectiveProjection = guiManager->GetIsusePerspectiveProjection();
+
+
+    m_projFovAngleY = guiManager->GetProY();
+    m_nearZ = guiManager->GetNearZ();
+    m_farZ = guiManager->GetFarZ();
+
+    ///[정점]이 위까지 각 시점에 대한 행렬을 업뎃하고, 이 정보를 업데이트하고 메쉬와 연결한다.
+    /// 메쉬 관련 수정할 부분임!
+    UpdateBuffer(m_vertexConstantBufferData, m_pMesh->m_vertexConstantBuffer);
+
+    /// buffer를 공유하기 때문에 하나만 복사
+    ///if (m_meshes[0]) {
+    ///    UpdateBuffer(m_pixelConstantBufferData, m_meshes[0]->m_pixelConstantBuffer);
+    ///}
+
+    // 노멀의 값을 gui에서 가져온다. //◆to 리나 : 순서를 바꿨어요
+    m_normalVertexConstantBufferData = guiManager->GetNBuffer();
+
+    // 노멀을 그릴 필요가 있는 상태에서 노멀 크기가 바뀔 때만 버퍼를 업데이트 하면 되므로 조건을
+    // 건다.
+    if (m_isDrawNormals && m_changingNormalFlag) {
+        ///[노멀] 버텍스 값을 업데이트 한다.
+        UpdateBuffer(m_normalVertexConstantBufferData, m_pNormalLines->m_vertexConstantBuffer);
+        m_changingNormalFlag = false;
+    }
+
+    m_isDrawNormals = guiManager->GetDrawNormals();
+    m_isDrawAsWire = guiManager->GetDrawAsWire();
+
+    ///------위까지 정점 완료, 아래는 픽셸로 분류 하겠음(Riun)
+
+    // gui의 값을 저장한다. //◆to 리나 : 순서를 바꿨어요
+    m_materialDiffuse = guiManager->GetMaterialDiffuse();
+    m_materialSpecular = guiManager->GetMaterialSpecular();
+
+    // 픽셸 버퍼 데이터에 디퓨즈와 스펙큘러 값을 저장한다.
+    m_pixelConstantBufferData.material.diffuse = Vector3(m_materialDiffuse);
+    m_pixelConstantBufferData.material.specular = Vector3(m_materialSpecular);
+
+    // 빛의 종류와 값을 각각 gui에서 받아온다. //◆to 리나 : 순서를 바꿨어요
+    m_lightType = guiManager->GetLightType();
+    m_lightFromGUI = guiManager->GetLightFromGUI();
+
+    // 여러 개 조명 사용하기 위해, 사용하지 않는 조명의 값을 강제로 0으로 조정해서 그림
+    for (int i = 0; i < MAX_LIGHTS; i++) {
+        // 다른 조명 끄기
+        if (i != m_lightType) {
+            m_pixelConstantBufferData.lights[i].strength *= 0.0f;
+        } else {
+            m_pixelConstantBufferData.lights[i] = m_lightFromGUI;
+        }
+    }
+
+    ///[픽셸]이 위까지 각 시점에 대한 픽셸 값을 업뎃하고 메쉬와 연결한다.
+    UpdateBuffer(m_pixelConstantBufferData, m_pMesh->m_pixelConstantBuffer);
+
+    guiManager->UISetEndGUI();
+    return true;
+}
+
+void NestRenderer::BeginRender() {
+    /// 일반적 렌더링 순서 : 뷰포트 설정 -> VS 설정 -> 상수버퍼 설정 -> 렌더 타겟 및 깊이 스텐실
+    /// 설정 -> 렌더 타겟 클리어
+
+    // 렌더링할 뷰포트를 설정한다. (1번에, m_pD3dScreenViewport 설정)
+    m_pD3dContext->RSSetViewports(1, &m_pD3dScreenViewport);
+
+    // 배경 초기화 색상(R, G, B, A)
+    float clearColor[4] = {17.0f / 255.0f, 51.0f / 255.0f, 85.0f / 255.0f, 1.0f};
+
+    // 버텍스 쉐이더를 설정한다.
+    m_pD3dContext->VSSetShader(m_pVertexShader.Get(), 0, 0);
+
+    /// 메쉬의 버텍스 상수 버퍼 설정
+    {
+        // 메쉬로부터 상수 버퍼를 가져와 설정
+        m_pD3dContext->VSSetConstantBuffers(0, 1, m_pMesh->m_vertexConstantBuffer.GetAddressOf());
+
+        /// 깊이 스텐실은 아직 없음
+        // Output Merger(OM) 단계의 렌더 타겟을 설정(1번, 렌더 타겟 주소 포인터, 깊이 스텐실 상태
+        // 주소)
+        m_pD3dContext->OMSetRenderTargets(1, m_pD3dRenderTargetView.GetAddressOf(),
+                                          m_pD3dDepthStencilView.Get());
+        // Output Merger(OM) 단계의 깊이 스텐실 상태 설정
+        m_pD3dContext->OMSetDepthStencilState(m_pD3dDepthStencilState.Get(), 0);
+    }
+
+    // 렌더 타겟 뷰를 설정하고, 거기에 초기화 색상을 넣어준다.
+    m_pD3dContext->ClearRenderTargetView(m_pD3dRenderTargetView.Get(), clearColor);
+
+    // 깊이 스텐실 버퍼(깊이 스텐실 버퍼, 깊이 | 스텐실, 1.0f, 0) // 각각 1.0f와 0은 깊이와 스텐실의
+    // 초기화 값
+    m_pD3dContext->ClearDepthStencilView(m_pD3dDepthStencilView.Get(),
+                                         D3D11_CLEAR_DEPTH | D3D11_CLEAR_STENCIL, 1.0f, 0);
+}
+
+void NestRenderer::DrawSomething() {
+    BeginRender();
+    /// 텍스처 설정
+    {
+        //[DJ] : 텍스처의 개수만큼 pixelResources[?]의 ? 수를 조정, 2개면 2개 {} 안에는 선언한
+        // 리소스뷰.Get() 넣어줄 것
+        ID3D11ShaderResourceView *pixelResources[2] = {m_pTextureResourceView1.Get(),
+                                                       m_pTextureResourceView2.Get()};
+        //[DJ] : 위에 쓴 숫자만큼 가운데 자리에 넣어주기.
+        m_pD3dContext->PSSetShaderResources(0, 2, pixelResources);
+    }
+    /// PS 설정
+    {
+        // PS 샘플러 설정
+        m_pD3dContext->PSSetSamplers(0, 1, m_pSamplerState.GetAddressOf());
+        /// 픽셀 쉐이더에 상수 버퍼 설정(메쉬)
+        m_pD3dContext->PSSetConstantBuffers(0, 1, m_pMesh->m_pixelConstantBuffer.GetAddressOf());
+        // 픽셀 쉐이더 설정
+        m_pD3dContext->PSSetShader(m_pPixelShader.Get(), 0, 0);
+    }
+
+    /// 렌더 스테이트 설정
+    if (m_isDrawAsWire) {
+        m_pD3dContext->RSSetState(m_pD3dWireRasterizerSate.Get());
+    } else {
+        m_pD3dContext->RSSetState(m_pD3dSolidRasterizerSate.Get());
+    }
+
+    /// 인풋 레이아웃 설정
+    m_pD3dContext->IASetInputLayout(m_pInputLayout.Get());
+
+    /// 버텍스/인덱스 버퍼 설정
+    UINT stride = sizeof(Vertex);
+    UINT offset = 0;
+
+    /// 텍스처의 정보를 받아와서 정점 및 인덱스 데이터를 설정
+    {
+        m_pD3dContext->IASetVertexBuffers(0, 1, m_pMesh->m_vertexBuffer.GetAddressOf(), &stride,
+                                          &offset);
+        m_pD3dContext->IASetIndexBuffer(m_pMesh->m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT, 0);
+        /// 프리미티브 토폴로지 설정 : 어떤 형태로 그릴지 설정해야 함
+        m_pD3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    }
+
+    /// 정말로 그리는 부분(이 부분을 제외하고 모두 데이터를 가져오는 부분으로 판단하면 된다.
+    // 인덱스를 사용하여 렌더링
+    m_pD3dContext->DrawIndexed(m_pMesh->m_indexCount, 0, 0);
+
+    ///-- 물체 띄우는데 필요한 최소한의 랜더링 순서 끝
+
+    /// 노멀 벡터를 그린다. 유사한 순서를 따른다.
+    if (m_isDrawNormals) {
+        m_pD3dContext->VSSetShader(m_pNormalVertexShader.Get(), 0, 0);
+        m_pD3dContext->VSSetConstantBuffers(1, 1,
+                                            m_pNormalLines->m_vertexConstantBuffer.GetAddressOf());
+        m_pD3dContext->PSSetShader(m_pNormalPixelShader.Get(), 0, 0);
+        m_pD3dContext->IASetVertexBuffers(
+            0, 1, m_pNormalLines->m_vertexBuffer.GetAddressOf(), &stride,
+            &offset); /// slot을 1부터 시작하면 안 된다. vertex 정보 받아와야 함. 공유한다.
+        m_pD3dContext->IASetIndexBuffer(m_pNormalLines->m_indexBuffer.Get(), DXGI_FORMAT_R16_UINT,
+                                        0);
+        m_pD3dContext->IASetPrimitiveTopology(D3D11_PRIMITIVE_TOPOLOGY_LINELIST);
+        m_pD3dContext->DrawIndexed(m_pNormalLines->m_indexCount, 0, 0);
+    }
+    guiManager->RenderGUI();
+
+    EndRender();
+}
+
+void NestRenderer::EndRender() {
+    HRESULT hr = (m_pD3dSwapChain->Present(1, 0));
+    if (FAILED(hr)) {
+        LPWSTR output;
+        FormatMessage(FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS |
+                          FORMAT_MESSAGE_ALLOCATE_BUFFER,
+                      NULL, hr, MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), (LPTSTR)&output, 0,
+                      NULL);
+        MessageBox(NULL, output, L"EndRender Error", MB_OK);
+    }
+}
+
+void NestRenderer::Finalize() {
+    delete guiManager;
+    delete camera;
+}
+
+void NestRenderer::GetMeshData(MeshData m_getMeshData) { m_meshData = m_getMeshData; }
+
+// 나중에 텍스처를 언로드맵으로 관리할겁니다. 텍스처말고 다른 자원도 마찬가지로?
+void NestRenderer::GetTexturePath(const std::string filename, const std::string filename2,
+                                  const wstring filename3, const wstring filename4) {
+
+    /// 텍스처 생성
+    //[DJ]Texture 이미지 삽입할 때 여기서 삽입함 //1. Texture를 삽입
+    CreateTexture(filename, m_pTexture1, m_pTextureResourceView1);
+    CreateTexture(filename2, m_pTexture2, m_pTextureResourceView2);
+
+    // Texture sampler 만들기 // 2. 텍스처를 샘플링하는 샘플러 제작
+    D3D11_SAMPLER_DESC sampDesc;
+    ZeroMemory(&sampDesc, sizeof(sampDesc));
+    sampDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
+    sampDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    sampDesc.ComparisonFunc = D3D11_COMPARISON_NEVER;
+    sampDesc.MinLOD = 0;
+    sampDesc.MaxLOD = D3D11_FLOAT32_MAX;
+
+    // 샘플러 상태 생성
+    m_pD3dDevice->CreateSamplerState(&sampDesc, m_pSamplerState.GetAddressOf());
+
+    // Geometry 정의
+    m_pMesh = std::make_shared<Mesh>();
+
+    //
+    // auto meshes = GeometryGenerator::ReadFromFile("경로", "파일이름.확장자");
+
+    /// 이 부분을 이 다음 주석 처리한 것으로 수정할 예정임.
+    {
+        // 들어온 메쉬에 대해 버퍼 생성
+        CreateVertexBuffer(m_meshData.vertices, m_pMesh->m_vertexBuffer);
+        m_pMesh->m_indexCount = UINT(m_meshData.indices.size());
+        CreateIndexBuffer(m_meshData.indices, m_pMesh->m_indexBuffer);
+
+        // 버퍼의 현재 뷰를 설정
+        m_vertexConstantBufferData.world = Matrix();
+        m_vertexConstantBufferData.view = Matrix();
+        m_vertexConstantBufferData.projection = Matrix();
+
+        // 뷰에 맞게 메쉬 상수 버퍼를 넣어줌
+        CreateConstantBuffer(m_vertexConstantBufferData, m_pMesh->m_vertexConstantBuffer);
+        CreateConstantBuffer(m_pixelConstantBufferData, m_pMesh->m_pixelConstantBuffer);
+    }
+
+    /// for (const auto &meshData : meshes) {
+    ///     m_pNewMesh = std::make_shared<Mesh>();
+    ///     // 들어온 메쉬에 대해 버퍼 생성
+    ///     CreateVertexBuffer(meshData.vertices, m_pNewMesh->m_vertexBuffer);
+    ///     m_pNewMesh->m_indexCount = UINT(meshData.indices.size());
+    ///     CreateIndexBuffer(meshData.indices, m_pNewMesh->m_indexBuffer);
+
+    ///    if (!meshData.textureFilename.empty()) {
+
+    ///        std::cout << meshData.textureFilename << std::endl;
+    ///        CreateTexture(meshData.textureFilename, m_pNewMesh->texture,
+    ///                      m_pNewMesh->textureResourceView);
+    ///    }
+
+    ///    m_pNewMesh->m_vertexConstantBuffer = vertexConstantBuffer;
+    ///    m_pNewMesh->m_pixelConstantBuffer = pixelConstantBuffer;
+
+    ///    m_pMesh.push_back(m_pNewMesh);
+    ///}
+
+    // 입력되는 데이터값이 어떤 형태인지 저장
+    vector<D3D11_INPUT_ELEMENT_DESC> inputElements = {
+        {"POSITION", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 0, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"NORMAL", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 12, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        {"TEXCOORD", 0, DXGI_FORMAT_R32G32_FLOAT, 0, 24, D3D11_INPUT_PER_VERTEX_DATA, 0},
+        //{"COLOR", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0, 32, D3D11_INPUT_PER_VERTEX_DATA, 0},
+    };
+
+    // 버텍스의 hlsl로부터 정보를 가져와서 입력 데이터에 넣는다.
+    // 자세한 설명은 관련 함수 템플릿에 적어둠
+    CreateVertexShaderAndInputLayout(filename3, inputElements, m_pVertexShader, m_pInputLayout);
+    // CreateVertexShaderAndInputLayout()와 구조 동일
+    CreatePixelShader(filename4, m_pPixelShader);
+
+    /// 위에서 생성한 메쉬와 버텍스를 공유하여, 반드시 메쉬 생성 후 노멀 벡터를 그린다.
+    {
+        m_pNormalLines = std::make_shared<Mesh>();
+
+        std::vector<Vertex> normalVertices;
+        std::vector<uint16_t> normalIndices;
+        for (size_t i = 0; i < m_meshData.vertices.size(); i++) {
+
+            auto v = m_meshData.vertices[i];
+
+            v.texcoord.x = 0.0f; // 시작점 표시
+            normalVertices.push_back(v);
+
+            v.texcoord.x = 1.0f; // 끝점 표시
+            normalVertices.push_back(v);
+
+            normalIndices.push_back(uint16_t(2 * i));
+            normalIndices.push_back(uint16_t(2 * i + 1));
+        }
+
+        CreateVertexBuffer(normalVertices, m_pNormalLines->m_vertexBuffer);
+        m_pNormalLines->m_indexCount = UINT(normalIndices.size());
+        CreateIndexBuffer(normalIndices, m_pNormalLines->m_indexBuffer);
+        CreateConstantBuffer(m_normalVertexConstantBufferData,
+                             m_pNormalLines->m_vertexConstantBuffer);
+        CreateVertexShaderAndInputLayout(filename3, inputElements, m_pNormalVertexShader,
+                                         m_pInputLayout);
+        CreatePixelShader(filename4, m_pNormalPixelShader);
+    }
+}
+
+/// 디버깅용 함수 (셰이더 컴파일이나 D3D API 호출에서 발생하는 오류를 체크하고, 오류가 발생했을 경우
+/// 오류 메시지를 출력)
+void NestRenderer::CheckResult(HRESULT hr, ID3DBlob *errorBlob) {
+    if (FAILED(hr)) {
+        // 파일이 없을 경우
+        if ((hr & D3D11_ERROR_FILE_NOT_FOUND) != 0) {
+            std::cout << "File not found." << std::endl;
+        }
+
+        // 에러 메시지가 있으면 출력
+        if (errorBlob) {
+            std::cout << "Shader compile error\n"
+                      << (char *)errorBlob->GetBufferPointer() << std::endl;
+        }
+    }
+}
+/// <summary>
+/// 버텍스의 구조체 정보를 필요로 함
+/// </summary>
+/// <param name="filename">hlsl 파일</param>
+/// <param name="inputElements">입력 레이아웃 설명 작성한 값</param>
+/// <param name="vertexShader">버텍스 쉐이터 주소</param>
+/// <param name="inputLayout">인풋 레이아웃 주소 연결</param>
+void NestRenderer::CreateVertexShaderAndInputLayout(
+    const wstring &filename, const vector<D3D11_INPUT_ELEMENT_DESC> &inputElements,
+    ComPtr<ID3D11VertexShader> &vertexShader, ComPtr<ID3D11InputLayout> &inputLayout) {
+
+    ComPtr<ID3DBlob> shaderBlob; // 컴파일된 셰이더 코드를 저장하기 위한 인터페이스
+    ComPtr<ID3DBlob> errorBlob; // 셰이더 컴파일 시 발생한 오류 메시지를 저장하기 위한 인터페이스
+
+    UINT compileFlags = 0;
+#if defined(DEBUG) || defined(_DEBUG)
+    compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+    // 주의: 쉐이더의 시작점의 이름이 "main"인 함수로 지정
+    // D3D_COMPILE_STANDARD_FILE_INCLUDE 추가: 쉐이더에서 include 사용
+    HRESULT hr =
+        // HLSL 코드를 지정된 대상에 대한 바이트코드로 컴파일
+        // 파일 이름, 매크로 사용 유무, 쉐이더에서 include 사용하는지, 쉐이더 진입점 이름, 쉐이더
+        // 버전, 플래그, 0(쉐이더 사용시 0으로 설정), shaderBlob, errorBlob
+        D3DCompileFromFile(filename.c_str(), 0, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "vs_5_0",
+                           compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+
+    CheckResult(hr, errorBlob.Get());
+
+    m_pD3dDevice->CreateVertexShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(),
+                                     NULL, &vertexShader);
+
+    m_pD3dDevice->CreateInputLayout(inputElements.data(), UINT(inputElements.size()),
+                                    shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(),
+                                    &inputLayout);
+}
+
+// 버로 위의 CreateVertexShaderAndInputLayout()와 변수가 같다. 버텍스만 픽셸로 이해하면 된다.
+void NestRenderer::CreatePixelShader(const wstring &filename,
+                                     ComPtr<ID3D11PixelShader> &pixelShader) {
+    ComPtr<ID3DBlob> shaderBlob;
+    ComPtr<ID3DBlob> errorBlob;
+
+    UINT compileFlags = 0;
+#if defined(DEBUG) || defined(_DEBUG)
+    compileFlags = D3DCOMPILE_DEBUG | D3DCOMPILE_SKIP_OPTIMIZATION;
+#endif
+
+    HRESULT hr =
+        D3DCompileFromFile(filename.c_str(), 0, D3D_COMPILE_STANDARD_FILE_INCLUDE, "main", "ps_5_0",
+                           compileFlags, 0, shaderBlob.GetAddressOf(), errorBlob.GetAddressOf());
+
+    CheckResult(hr, errorBlob.Get());
+
+    m_pD3dDevice->CreatePixelShader(shaderBlob->GetBufferPointer(), shaderBlob->GetBufferSize(),
+                                    NULL, pixelShader.GetAddressOf());
+}
+
+void NestRenderer::CreateIndexBuffer(const vector<uint16_t> &indices,
+                                     ComPtr<ID3D11Buffer> &m_indexBuffer) {
+    D3D11_BUFFER_DESC bufferDesc = {};
+    bufferDesc.Usage = D3D11_USAGE_IMMUTABLE; // 초기화 후 변경X
+    bufferDesc.ByteWidth = UINT(sizeof(uint16_t) * indices.size());
+    bufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER;
+    bufferDesc.CPUAccessFlags = 0; // 0 if no CPU access is necessary.
+    bufferDesc.StructureByteStride = sizeof(uint16_t);
+
+    D3D11_SUBRESOURCE_DATA indexBufferData = {0};
+    indexBufferData.pSysMem = indices.data();
+    indexBufferData.SysMemPitch = 0;
+    indexBufferData.SysMemSlicePitch = 0;
+
+    m_pD3dDevice->CreateBuffer(&bufferDesc, &indexBufferData, m_indexBuffer.GetAddressOf());
+}
+
+/// <summary>
+/// 텍스처를 생성하는 함수
+/// </summary>
+/// <param name="filename">파일 경로를 포함한 이름</param>
+/// <param name="m_texture">생성한 텍스처의 주소 참조</param>
+/// <param name="texResourceView">텍스처의 이미지 뷰</param>
+void NestRenderer::CreateTexture(const std::string filename, ComPtr<ID3D11Texture2D> &m_texture,
+                                 ComPtr<ID3D11ShaderResourceView> &texResourceView) {
+
+    int width, height, channels;
+
+    unsigned char *img = stbi_load(filename.c_str(), &width, &height, &channels, 0);
+
+    // assert(channels == 4);
+
+    std::vector<uint8_t> image;
+
+    // image.resize(width * height * channels);
+    // memcpy(image.data(), img, image.size() * sizeof(uint8_t));
+    image.resize(width * height * 4);
+
+    for (size_t i = 0; i < width * height; i++) {
+
+        for (size_t c = 0; c < 3; c++) {
+
+            image[4 * i + c] = img[i * channels + c];
+        }
+
+        image[4 * i + 3] = 255;
+    }
+
+    // Create texture.
+    D3D11_TEXTURE2D_DESC texDesc = {};
+    texDesc.Width = width;
+    texDesc.Height = height;
+    texDesc.MipLevels = texDesc.ArraySize = 1;
+    texDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+    texDesc.SampleDesc.Count = 1;
+    texDesc.Usage = D3D11_USAGE_IMMUTABLE;
+    texDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+    // Fill in the subresource data.
+    D3D11_SUBRESOURCE_DATA InitData;
+    InitData.pSysMem = image.data();
+    InitData.SysMemPitch = texDesc.Width * sizeof(uint8_t) * 4;
+    // InitData.SysMemSlicePitch = 0;
+
+    // ID3D11Device* pd3dDevice; // Don't forget to initialize this
+    m_pD3dDevice->CreateTexture2D(&texDesc, &InitData, m_texture.GetAddressOf());
+    m_pD3dDevice->CreateShaderResourceView(m_texture.Get(), nullptr,
+                                           texResourceView.GetAddressOf());
+}
+
+/// <summary>
+/// 디바이스의 정보를 얻어오는 함수
+/// </summary>
+void NestRenderer::GetInfoDevice() {
+    m_pD3dDevice = nestDevice->GetD3dDevice();
+    m_pD3dContext = nestDevice->GetD3dContext();
+    m_pD3dRenderTargetView = nestDevice->GetD3dRenderTargetView();
+    m_pD3dDepthStencilView = nestDevice->GetD3dDepthStencilView();
+    m_pD3dSolidRasterizerSate = nestDevice->GetD3dSolidRasterizerSate();
+    m_pD3dWireRasterizerSate = nestDevice->GetD3dWireRasterizerSate();
+    m_pD3dDepthStencilState = nestDevice->GetD3dDepthStencilState();
+    m_pD3dSwapChain = nestDevice->GetD3dSwapChain();
+    m_pD3dScreenViewport = nestDevice->GetD3dScreenViewport();
+}

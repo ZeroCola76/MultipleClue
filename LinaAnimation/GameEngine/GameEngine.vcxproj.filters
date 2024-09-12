@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="GameEngineEntry">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{21111568-1259-45e1-932c-f216a76f9aa0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject">
+      <UniqueIdentifier>{8abaed82-8fea-4ae2-99e3-2f62fd96dead}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject\Monster">
+      <UniqueIdentifier>{8bf0bf95-02f5-4ca1-968a-365d6362555a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject\Box">
+      <UniqueIdentifier>{5449d473-63ed-40b4-8bd3-803ab65a049f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object\GameObject\Player">
+      <UniqueIdentifier>{6051db73-233c-47b5-8d4c-c74bb182c202}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="NestGameEngine.cpp">
+      <Filter>GameEngineEntry</Filter>
+    </ClCompile>
+    <ClCompile Include="Box.cpp">
+      <Filter>Object\GameObject\Box</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="NestGameEngine.h">
+      <Filter>GameEngineEntry</Filter>
+    </ClInclude>
+    <ClInclude Include="IObject.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="IGameObject.h">
+      <Filter>Object\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Box.h">
+      <Filter>Object\GameObject\Box</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

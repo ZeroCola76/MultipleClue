@@ -1,0 +1,153 @@
+﻿  Box.cpp
+  NestGameEngine.cpp
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(24,33): error C2039: 'getInstance': 'InputManager'의 멤버가 아닙니다.
+  E:\Project\5_Project\NestModule\SceneManager.h(12,7):
+  'InputManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(24,33): error C3861: 'getInstance': 식별자를 찾을 수 없습니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(25,18): error C2039: 'SetHwnd': 'InputManager'의 멤버가 아닙니다.
+  E:\Project\5_Project\NestModule\SceneManager.h(12,7):
+  'InputManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(55,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(55,62): error C2065: 'Model': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(69,32): error C2039: 'GetObjectW': 'ObjectManager'의 멤버가 아닙니다.
+  E:\Project\5_Project\NestModule\SceneManager.h(14,7):
+  'ObjectManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,28): error C2065: 'SceneComponent': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,44): error C3536: 'temp': 초기화되기 전에 사용할 수 없습니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,7): error C2672: 'std::dynamic_pointer_cast': 일치하는 오버로드된 함수가 없습니다.
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(2044,29):
+  'std::shared_ptr<_Ty> std::dynamic_pointer_cast(std::shared_ptr<_Ty0> &&) noexcept'일 수 있습니다.
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,28):
+  	'std::dynamic_pointer_cast': '_Ty1'의 템플릿 인수가 잘못되었습니다. 형식이 필요합니다.
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(2032,29):
+  또는       'std::shared_ptr<_Ty> std::dynamic_pointer_cast(const std::shared_ptr<_Ty0> &) noexcept'
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,28):
+  	'std::dynamic_pointer_cast': '_Ty1'의 템플릿 인수가 잘못되었습니다. 형식이 필요합니다.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,76): error C2838: 'TEST01': 멤버 선언의 정규화된 이름이 잘못되었습니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(70,76): error C2065: 'TEST01': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(71,27): error C2039: 'GetObjectW': 'ObjectManager'의 멤버가 아닙니다.
+  E:\Project\5_Project\NestModule\SceneManager.h(14,7):
+  'ObjectManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(72,28): error C2065: 'SceneComponent': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(72,7): error C2672: 'std::dynamic_pointer_cast': 일치하는 오버로드된 함수가 없습니다.
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(2044,29):
+  'std::shared_ptr<_Ty> std::dynamic_pointer_cast(std::shared_ptr<_Ty0> &&) noexcept'일 수 있습니다.
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(72,28):
+  	'std::dynamic_pointer_cast': '_Ty1'의 템플릿 인수가 잘못되었습니다. 형식이 필요합니다.
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(2032,29):
+  또는       'std::shared_ptr<_Ty> std::dynamic_pointer_cast(const std::shared_ptr<_Ty0> &) noexcept'
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(72,28):
+  	'std::dynamic_pointer_cast': '_Ty1'의 템플릿 인수가 잘못되었습니다. 형식이 필요합니다.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(72,76): error C2838: 'TEST01': 멤버 선언의 정규화된 이름이 잘못되었습니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(72,76): error C2065: 'TEST01': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(73,27): error C2039: 'GetObjectW': 'ObjectManager'의 멤버가 아닙니다.
+  E:\Project\5_Project\NestModule\SceneManager.h(14,7):
+  'ObjectManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(74,28): error C2065: 'SceneComponent': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(74,7): error C2672: 'std::dynamic_pointer_cast': 일치하는 오버로드된 함수가 없습니다.
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(2044,29):
+  'std::shared_ptr<_Ty> std::dynamic_pointer_cast(std::shared_ptr<_Ty0> &&) noexcept'일 수 있습니다.
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(74,28):
+  	'std::dynamic_pointer_cast': '_Ty1'의 템플릿 인수가 잘못되었습니다. 형식이 필요합니다.
+  C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\memory(2032,29):
+  또는       'std::shared_ptr<_Ty> std::dynamic_pointer_cast(const std::shared_ptr<_Ty0> &) noexcept'
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(74,28):
+  	'std::dynamic_pointer_cast': '_Ty1'의 템플릿 인수가 잘못되었습니다. 형식이 필요합니다.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(74,76): error C2838: 'TEST03': 멤버 선언의 정규화된 이름이 잘못되었습니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(74,76): error C2065: 'TEST03': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(78,7): error C2664: 'void SceneManager::SetTempEntityVector(std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>>)': 인수 1을(를) 'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>> *'에서 'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>>'(으)로 변환할 수 없습니다.
+  E:\Project\5_Project\GameEngine\NestGameEngine.cpp(78,29):
+  'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>>::vector': 모든 인수 형식을 변환할 수 있는 오버로드된 함수가 없습니다.
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(654,5):
+  	'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>>::vector(std::initializer_list<_Ty>,const _Alloc &)'일 수 있습니다.
+          with
+          [
+              _Ty=std::shared_ptr<Entity>,
+              _Alloc=std::allocator<std::shared_ptr<Entity>>
+          ]
+  		E:\Project\5_Project\GameEngine\NestGameEngine.cpp(78,29):
+  		'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>>::vector(std::initializer_list<_Ty>,const _Alloc &)': 인수 1을(를) 'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>> *'에서 'std::initializer_list<_Ty>'(으)로 변환할 수 없습니다.
+          with
+          [
+              _Ty=std::shared_ptr<Entity>,
+              _Alloc=std::allocator<std::shared_ptr<Entity>>
+          ]
+          and
+          [
+              _Ty=std::shared_ptr<Entity>
+          ]
+  			E:\Project\5_Project\GameEngine\NestGameEngine.cpp(78,29):
+  			변환하려면 둘째 사용자 정의 변환 연산자 또는 생성자가 있어야 합니다.
+  	C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.38.33130\include\vector(627,5):
+  	또는       'std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>>::vector(_Iter,_Iter,const _Alloc &)'
+          with
+          [
+              _Alloc=std::allocator<std::shared_ptr<Entity>>
+          ]
+  	E:\Project\5_Project\GameEngine\NestGameEngine.cpp(78,29):
+  	인수 목록 '(std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>> *)'을(를) 일치시키는 동안
+  E:\Project\5_Project\NestModule\SceneManager.h(29,7):
+  'SceneManager::SetTempEntityVector' 선언을 참조하십시오.
+  E:\Project\5_Project\GameEngine\NestGameEngine.cpp(78,7):
+  인수 목록 '(std::vector<std::shared_ptr<Entity>,std::allocator<std::shared_ptr<Entity>>> *)'을(를) 일치시키는 동안
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(82,33): warning C4311: '형식 캐스트': 'HWND'에서 'int'(으)로 포인터가 잘립니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(82,33): warning C4302: '형식 캐스트': 'HWND'에서 'int'(으)로 잘립니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(89,80): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(89,95): error C2065: 'cubemaps': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(90,34): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(90,49): error C2065: 'cubemaps': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(91,34): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(91,49): error C2065: 'cubemaps': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(89,20): error C2660: 'IRenderer::SetCubeMeshData': 함수는 1개의 인수를 사용하지 않습니다.
+  E:\Project\5_Project\GraphicsMark\Mark3\IRenderer.h(62,15):
+  'IRenderer::SetCubeMeshData' 선언을 참조하십시오.
+  E:\Project\5_Project\GameEngine\NestGameEngine.cpp(89,20):
+  인수 목록 '(NestGraphics::ModelData *)'을(를) 일치시키는 동안
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(98,91): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(98,106): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(102,89): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(102,104): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(103,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(103,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(104,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(104,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(105,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(105,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(106,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(106,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(107,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(107,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(108,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(108,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(109,47): error C2653: 'RESOURCE_TYPE': 클래스 또는 네임스페이스 이름이 아닙니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(109,62): error C2065: 'image': 선언되지 않은 식별자입니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(143,46): error C2248: 'InputManager::m_key': private 멤버('InputManager' 클래스에서 선언)에 액세스할 수 없습니다.
+  E:\Project\5_Project\NestModule\InputManager.h(28,19):
+  'InputManager::m_key' 선언을 참조하십시오.
+  E:\Project\5_Project\NestModule\SceneManager.h(12,7):
+  'InputManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(147,45): error C2248: 'InputManager::m_key': private 멤버('InputManager' 클래스에서 선언)에 액세스할 수 없습니다.
+  E:\Project\5_Project\NestModule\InputManager.h(28,19):
+  'InputManager::m_key' 선언을 참조하십시오.
+  E:\Project\5_Project\NestModule\SceneManager.h(12,7):
+  'InputManager' 선언을 참조하십시오.
+  
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(159,57): warning C4244: '인수': 'double'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+E:\Project\5_Project\GameEngine\NestGameEngine.cpp(167,57): error C2248: 'InputManager::m_key': private 멤버('InputManager' 클래스에서 선언)에 액세스할 수 없습니다.
+  E:\Project\5_Project\NestModule\InputManager.h(28,19):
+  'InputManager::m_key' 선언을 참조하십시오.
+  E:\Project\5_Project\NestModule\SceneManager.h(12,7):
+  'InputManager' 선언을 참조하십시오.
+  
+  코드를 생성하고 있습니다...
